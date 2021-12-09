@@ -8,3 +8,5 @@ for x, y in shopping_list.items():
     print("Idę do", x.capitalize(),"kupuję tu następujące rzeczy:", y)
 
 print("W sumie kupuję", len(shopping_list["piekarnia"]) + len(shopping_list["warzywniak"]), "produktów.")
+
+print("Aktualizacja repozytorium lokalnego.")
