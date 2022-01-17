@@ -1,57 +1,87 @@
-class Card:
-    def __init__(self, first_name, last_name, company_name, job_position, email):
-       self.first_name = first_name
-       self.last_name = last_name
-       self.company_name = company_name
-       self.job_position = job_position
-       self.email = email
+import random
 
-       self._first_name_lengh = len(first_name)
-       self._last_name_lengh = len(last_name)
+class Movie:
+    def __init__(self, title, publication_date, genre):
+        self.title = title
+        self.publication_date = publication_date
+        self.genre = genre
+        self.number_of_plays = 0
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name} {self.email}'
+        return f'{self.title}, ({self.publication_date})'
 
-    def contact(self):
-        return f'Kontaktuję się z {self.first_name} {self.last_name} {self.job_position} {self.email}'
+    def play(self, step=1):
+        self.number_of_plays += step
 
-    @property
-    def name_lengh(self):
-        return f'{self._first_name_lengh} {self._last_name_lengh}'
+class Series(Movie):
+    def __init__(self, episode_number, season_number):
+        super().__init__(*args, **kwargs)
+        self.episode_number = episode_number
+        self.season_number = season_number
 
-class BaseContact(Card):
-   def __init__(self, phone_number, *args, **kwargs):
-       super().__init__(*args, **kwargs)
-       self.phone_number = phone_number
+    def __str__(self):
+        return f'{self.title} S{self.season_number:02d} E{self.episode_number:02d}'
 
-    def contact(self):
-        return f'Wybieram numer {self.phone_number} i dzwonię do {self.first_name} {self.last_name}'
+    def add(self, type):
+        movies_and_series = []
+        if type == "M":
+            movie = Movie(self.title)
+            movies_and_series.append(movie)
+        elif type == "S":
+            series = Series(self.title)
+            movies_and_series.append(series)
+        else:
+            print('Wprowadziłeś błędne dane!')
+        return movies_and_series
 
-    @property
-    def name_lengh(self):
-        return f'{self._first_name_lengh} {self._last_name_lengh}'
+movie_1 = Movie(title = "Transporter 2", publication_date = "2005", genre = "Akcji")
+movie_2 = Movie(title = "Pulp Fiction", publication_date = "1994", genre = "dramat")
+movie_3 = Movie(title = "Venom", publication_date = "2018", genre = "science fiction")
+movie_4 = Movie(title = "Druga twarz", publication_date = "2011", genre = "kryminalny")
+movie_5 = Movie(title = "Wielka ucieczka", publication_date = "1963", genre = "przygodowy")
 
-class BaseContact(Card):
-   def __init__(self, business_phone, *args, **kwargs):
-       super().__init__(*args, **kwargs)
-       self.business_phone = business_phone
+series_1 = Series(title = "Gra o Tron", publication_date = "2011", genre = "Fantasy", episode_number = "73", season_number = "8")
+series_2 = Series(title = "The Walking Dead", publication_date = "2010", genre = "Horror", episode_number = "161", season_number = "11")
+series_3 = Series(title = "Dr House", publication_date = "2004", genre = "medyczny", episode_number = "177", season_number = "8")
+series_4 = Series(title = "Breaking Bed", publication_date = "2008", genre = "czarna komedia", episode_number = "62", season_number = "5")
+series_5 = Series(title = "Przyjaciele", publication_date = "1994", genre = "sitcom", episode_number = "240", season_number = "10")
 
-    def contact(self):
-        return f'Wybieram numer {self.business_phone} i dzwonię do {self.first_name} {self.last_name}'
+movies_and_series = [movie_1, movie_2, movie_3, movie_4, movie_5, series_1, series_2, series_3, series_4, series_5]
 
-    @property
-    def name_lengh(self):
-        return f'{self._first_name_lengh} {self._last_name_lengh}'
+def get_movie():
+    movies = []
+    for film in movies_and_series:
+        if isinstance(film, Movie):
+            movies.append(film)
+    sorted_movies = sorted(movies)
+    return sorted_movies
 
-card_1 = Card(first_name = "Karol", last_name = "Nowak", phone_number = "+48 409 054 993", business_phone = "+48 384 092 012", company_name = "Parklane Hosiery", job_position = "Ticket taker", email = "KarolNowak@rhyta.com")
-card_2 = Card(first_name = "Sławomira", last_name = "Zając", phone_number = "+48 395 237 012", business_phone = "+48 976 391 104", company_name = "Gold Touch", job_position = "Financial aid director", email = "SlawomiraZajac@dayrep.com")
-card_3 = Card(first_name = "Bartosz", last_name = "Rutkowski", phone_number = "+48 192 374 019", business_phone = "+48 377 919 555", company_name = "Service Merchandise", job_position = "Land surveyor", email = "BartoszRutkowski@dayrep.com")
-card_4 = Card(first_name = "Oliwia", last_name = "Czarnecka", phone_number = "+48 142 576 978", business_phone = "+48 519 945 920", company_name = "Greenwich IGA", job_position = "Pipelayer", email = "OliwiaCzarnecka@armyspy.com")
-card_5 = Card(first_name = "Kunegunda", last_name = "Kwiatkowska", phone_number = "+48 135 246 357", business_phone = "+48 111 232 909", company_name = "Weingarten's", job_position = "Power transformer repairer", email = "KunegundaKwiatkowska@rhyta.com")
+def get_series():
+    series = []
+    for film in movies_and_series:
+        if isinstance(film, Series):
+            series.append(film)
+    sorted_series = sorted(series)
+    return sorted_series
 
-cards = [card_1, card_2, card_3, card_4, card_5]
+def search(element):
+    for i in movies_and_series:
+        if i.title == element:
+            return i
+        else:
+            print("Twojego filmu bądź serialu nie ma w bazie.")
 
-by_first_name = sorted(cards, key=lambda card: card.first_name)
-by_last_name = sorted(cards, key=lambda card: card.last_name)
-by_email = sorted(cards, key=lambda card: card.email)
+def generate_views():
+    element = random.choice(movies_and_series)
+    views = element.number_of_plays += random()
+    return views
 
+def ten_generate():
+    for i in range(10):
+        print(generate_views())
+
+def top_titles(quantity):
+    for i in range(quantity):
+        for element in movies_and_series:
+            top_title = max(element.number_of_plays)
+        return top_title
