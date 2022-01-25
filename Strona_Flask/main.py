@@ -11,4 +11,5 @@ def message():
    if request.method == 'GET':
        return render_template("contact.html")
    elif request.method == 'POST':
+       print(request.form["message"])
        return render_template("contact.html")

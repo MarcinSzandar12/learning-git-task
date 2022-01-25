@@ -5,14 +5,10 @@
         <li><strong>Email: </strong>martin0998@interia.pl</li>
 	    <li><strong>Telefon: </strong>517-954-910</li>
 	</ul>
-{% endblock %}
 
-{% extends "main.html" %}
-{% block content %}
-<form>
-    <h3><strong>Wyślij wiadomość</strong></h3>
-    <textarea rows="10" cols="50">
-    </textarea>
+<form action="/mypage/contact">
+  <h3><strong>Wyślij wiadomość</strong></h3>
+  <textarea name="message" rows="10" cols="50"></textarea>
   <button type="submit">Prześlij</button>
 </form>
 {% endblock %}
